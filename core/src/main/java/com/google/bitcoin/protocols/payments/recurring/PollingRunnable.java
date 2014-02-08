@@ -16,6 +16,7 @@
 package com.google.bitcoin.protocols.payments.recurring;
 
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
 import com.google.common.base.Preconditions;
@@ -64,25 +65,26 @@ public class PollingRunnable implements Runnable {
     }
 
     private int doRecurringPayment(Protos.PaymentDetails contract, Subscriptions subscriptions, int nbPaymentsSent) throws InterruptedException, ExecutionException, PaymentRequestException, IOException {
-        Preconditions.checkState(!contract.hasSerializedRecurringPaymentDetails());
+        Preconditions.checkState(contract.hasSerializedRecurringPaymentDetails());
         Protos.RecurringPaymentDetails recurringPaymentDetailsForContract = Protos.RecurringPaymentDetails.newBuilder().mergeFrom(contract.getSerializedRecurringPaymentDetails()).build();
 
         // Get the latest PaymentRequest from the server
         PaymentSession newSession = PaymentSession.createFromUrl(recurringPaymentDetailsForContract.getPollingUrl(), verifyPki).get();
 
         // Bail if there is nothing to pay or if the original contract is not respected
-        if (validateAndPreparePaymentRequest(contract, recurringPaymentDetailsForContract, newSession, subscriptions)) {
+        Wallet.SendRequest newSendRequest  = newSession.getSendRequest();
+        if (validateAndPreparePaymentRequest(contract, recurringPaymentDetailsForContract, newSession, newSendRequest, subscriptions)) {
             nbPaymentsSent++;
 
             // Send it
-            ListenableFuture<PaymentSession.Ack> ack = newSession.sendPayment(ImmutableList.<Transaction>of(newSession.getSendRequest().tx), null, null);
+            ListenableFuture<PaymentSession.Ack> ack = newSession.sendPayment(ImmutableList.<Transaction>of(newSendRequest.tx), null, null);
             callback.onAck(newSession.getSendRequest(), ack);
         }
 
         return nbPaymentsSent;
     }
 
-    private boolean validateAndPreparePaymentRequest(Protos.PaymentDetails contract, Protos.RecurringPaymentDetails recurringOriginalPaymentDetails, PaymentSession newSession, Subscriptions subscriptions) throws InvalidProtocolBufferException {
+    private boolean validateAndPreparePaymentRequest(Protos.PaymentDetails contract, Protos.RecurringPaymentDetails recurringOriginalPaymentDetails, PaymentSession newSession, Wallet.SendRequest sendRequest, Subscriptions subscriptions) throws InvalidProtocolBufferException {
         if (BigInteger.ZERO.compareTo(newSession.getValue()) >= 0) {
             // Nothing to pay
             return false;
@@ -96,7 +98,7 @@ public class PollingRunnable implements Runnable {
         BigInteger curPaymentAmountPerPeriod = subscriptions.getPaidAmountForPeriod(contract);
 
         // Prepare the Payment
-        return callback.preparePayment(newSession.getSendRequest(), BigInteger.valueOf(recurringOriginalPaymentDetails.getMaxPaymentAmount()), recurringOriginalPaymentDetails.getPaymentFrequencyType(),
+        return callback.preparePayment(sendRequest, BigInteger.valueOf(recurringOriginalPaymentDetails.getMaxPaymentAmount()), recurringOriginalPaymentDetails.getPaymentFrequencyType(),
                 BigInteger.valueOf(recurringOriginalPaymentDetails.getMaxPaymentPerPeriod()), newSession.getValue(), curPaymentAmountPerPeriod);
     }
 }

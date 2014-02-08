@@ -487,10 +487,10 @@ public class WalletTool {
             try {
                 ListenableFuture<PaymentSession> future;
                 if (location.startsWith("http")) {
-                    future = PaymentSession.createFromUrl(location, verifyPki);
+                    future = PaymentSession.createFromUrl(location, verifyPki, null, walletFile.getAbsoluteFile().getParentFile());
                 } else {
                     BitcoinURI paymentRequestURI = new BitcoinURI(location);
-                    future = PaymentSession.createFromBitcoinUri(paymentRequestURI, verifyPki);
+                    future = PaymentSession.createFromBitcoinUri(paymentRequestURI, verifyPki, null, walletFile.getAbsoluteFile().getParentFile());
                 }
                 PaymentSession session = future.get();
                 if (session != null) {

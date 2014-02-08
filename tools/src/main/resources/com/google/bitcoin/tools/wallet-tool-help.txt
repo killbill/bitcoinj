@@ -34,6 +34,8 @@ Usage: wallet-tool --flags action-name
                          --payment-request=/path/to/my.bitcoinpaymentrequest
                          --payment-request=bitcoin:?r=http://merchant.com/pay.php?123
                          --payment-request=http://merchant.com/pay.php?123
+                       If --recurring-payments is specified, the wallet will poll once so as to fetch new (recurring)
+                       payment requests.
 
                        Other options include:
                           --fee=0.01  sets the tx fee
