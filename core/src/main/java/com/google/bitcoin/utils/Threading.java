@@ -18,6 +18,7 @@ package com.google.bitcoin.utils;
 
 import com.google.common.util.concurrent.CycleDetectingLockFactory;
 import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.ListeningScheduledExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.slf4j.Logger;
@@ -183,6 +184,18 @@ public class Threading {
                 public Thread newThread(Runnable r) {
                     Thread t = new Thread(r);
                     t.setName("Threading.THREAD_POOL worker");
+                    t.setDaemon(true);
+                    return t;
+                }
+            })
+    );
+
+    public static ListeningScheduledExecutorService SCHEDULED_THREAD_POOL = MoreExecutors.listeningDecorator(
+            Executors.newScheduledThreadPool(1, new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable r) {
+                    Thread t = new Thread(r);
+                    t.setName("Threading.SCHEDULED_THREAD_POOL worker");
                     t.setDaemon(true);
                     return t;
                 }

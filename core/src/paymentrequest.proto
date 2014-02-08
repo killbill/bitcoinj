@@ -40,13 +40,14 @@ message Output {
         required bytes script = 2; // usually one of the standard Script forms
 }
 message PaymentDetails {
-        optional string network = 1 [default = "main"]; // "main" or "test"
-        repeated Output outputs = 2;        // Where payment should be sent
-        required uint64 time = 3;           // Timestamp; when payment request created
-        optional uint64 expires = 4;        // Timestamp; when this request should be considered invalid
-        optional string memo = 5;           // Human-readable description of request for the customer
-        optional string payment_url = 6;    // URL to send Payment and get PaymentACK
-        optional bytes merchant_data = 7;   // Arbitrary data to include in the Payment message
+        optional string network = 1 [default = "main"];                    // "main" or "test"
+        repeated Output outputs = 2;                                       // Where payment should be sent
+        required uint64 time = 3;                                          // Timestamp; when payment request created
+        optional uint64 expires = 4;                                       // Timestamp; when this request should be considered invalid
+        optional string memo = 5;                                          // Human-readable description of request for the customer
+        optional string payment_url = 6;                                   // URL to send Payment and get PaymentACK
+        optional bytes merchant_data = 7;                                  // Arbitrary data to include in the Payment message
+        optional bytes serialized_recurring_payment_details = 8;           // RecurringPaymentDetails
 }
 message PaymentRequest {
         optional uint32 payment_details_version = 1 [default = 1];
@@ -67,4 +68,16 @@ message Payment {
 message PaymentACK {
         required Payment payment = 1;      // Payment message that triggered this ACK
         optional string memo = 2;          // human-readable message for customer
+}
+enum PaymentFrequencyType {
+        WEEKLY = 1;
+        MONTHLY = 2;
+        QUARTERLY = 3;
+        ANNUAL = 4;
+}
+message RecurringPaymentDetails {
+        required string polling_url = 1;                          // URL to poll to get the next PaymentRequest
+        optional PaymentFrequencyType payment_frequency_type = 2; // Expected frequency
+        optional uint64 max_payment_per_period  = 3;              // Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+        optional uint64 max_payment_amount = 4;                   // Max payment amount (e.g. no more than 3 BTC per payment)
 }

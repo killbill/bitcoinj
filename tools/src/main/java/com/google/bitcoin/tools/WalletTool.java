@@ -25,6 +25,8 @@ import com.google.bitcoin.params.RegTestParams;
 import com.google.bitcoin.params.TestNet3Params;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
+import com.google.bitcoin.protocols.payments.recurring.PollingCallback;
+import com.google.bitcoin.protocols.payments.recurring.RecurringPaymentSession;
 import com.google.bitcoin.store.*;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
@@ -42,6 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.util.encoders.Hex;
 
+import javax.annotation.Nullable;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,7 +57,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 
@@ -207,6 +212,7 @@ public class WalletTool {
         parser.accepts("ignore-mandatory-extensions");
         OptionSpec<String> passwordFlag = parser.accepts("password").withRequiredArg();
         OptionSpec<String> paymentRequestLocation = parser.accepts("payment-request").withRequiredArg();
+        parser.accepts("recurring-payments");
         parser.accepts("no-pki");
         options = parser.parse(args);
 
@@ -330,8 +336,10 @@ public class WalletTool {
                     send(outputFlag.values(options), fee, lockTime, allowUnconfirmed);
                 } else if (options.has(paymentRequestLocation)) {
                     sendPaymentRequest(paymentRequestLocation.value(options), !options.has("no-pki"));
+                } else if (options.has("recurring-payments")) {
+                    pollRecurringPayments();
                 } else {
-                    System.err.println("You must specify a --payment-request or at least one --output=addr:value.");
+                    System.err.println("You must specify a --payment-request or --recurring-payments or at least one --output=addr:value.");
                     return;
                 }
                 break;
@@ -541,30 +549,12 @@ public class WalletTool {
                     System.out.println("Pki-Verified Org: " + session.pkiVerificationData.orgName);
             }
             final Wallet.SendRequest req = session.getSendRequest();
-            if (password != null) {
-                if (!wallet.checkPassword(password)) {
-                    System.err.println("Password is incorrect.");
-                    return;
-                }
-                req.aesKey = wallet.getKeyCrypter().deriveKey(password);
-            }
-            wallet.completeTx(req);  // may throw InsufficientMoneyException.
-            if (options.has("offline")) {
-                wallet.commitTx(req.tx);
+            if (!completeTransaction(req)) {
                 return;
             }
-            setup();
             // No refund address specified, no user-specified memo field.
             ListenableFuture<PaymentSession.Ack> future = session.sendPayment(ImmutableList.of(req.tx), null, null);
-            if (future == null) {
-                // No payment_url for submission so, broadcast and wait.
-                peers.startAndWait();
-                peers.broadcastTransaction(req.tx).get();
-            } else {
-                PaymentSession.Ack ack = future.get();
-                wallet.commitTx(req.tx);
-                System.out.println("Memo from server: " + ack.getMemo());
-            }
+            fetchAck(req, future);
         } catch (PaymentRequestException e) {
             System.err.println("Failed to send payment " + e.getMessage());
             System.exit(1);
@@ -583,6 +573,76 @@ public class WalletTool {
             System.err.println("Insufficient funds: have " + Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
         } catch (BlockStoreException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void pollRecurringPayments() throws IOException, InterruptedException {
+        final AtomicBoolean isDone = new AtomicBoolean(false);
+        ScheduledFuture future = RecurringPaymentSession.startPollingForRecurringPayments(walletFile.getAbsoluteFile().getParentFile(), new PollingCallback() {
+            @Override
+            public boolean preparePayment(Wallet.SendRequest sendRequest, BigInteger maxAgreedPaymentAmount, org.bitcoin.protocols.payments.Protos.PaymentFrequencyType frequencyType, BigInteger maxAgreedPaymentAmountPerPeriod, BigInteger curPaymentAmount, BigInteger curPaymentAmountPerPeriod) {
+                try {
+                    return maxAgreedPaymentAmount.compareTo(curPaymentAmount) >= 0 && WalletTool.completeTransaction(sendRequest);
+                } catch (Exception e) {
+                    System.err.println("Error completing the transaction: " + e.getMessage());
+                    return false;
+                }
+            }
+
+            @Override
+            public void onAck(Wallet.SendRequest request, @Nullable ListenableFuture<PaymentSession.Ack> future) {
+                try {
+                    WalletTool.fetchAck(request, future);
+                } catch (Exception e) {
+                    onException(e, null);
+                }
+            }
+
+            @Override
+            public void onException(Exception e, @Nullable org.bitcoin.protocols.payments.Protos.PaymentDetails contract) {
+                System.err.println("Got exception " + e.getMessage());
+            }
+
+            @Override
+            public void onCompletion(int nbPaymentsSent) {
+                System.out.println("Processed " + nbPaymentsSent + " sessions");
+                isDone.set(true);
+            }
+        }, !options.has("no-pki"));
+
+        while (!isDone.get()) {
+            Thread.sleep(1000);
+        }
+
+        future.cancel(true);
+    }
+
+    private static boolean completeTransaction(Wallet.SendRequest req) throws InsufficientMoneyException, BlockStoreException {
+        if (password != null) {
+            if (!wallet.checkPassword(password)) {
+                System.err.println("Password is incorrect.");
+                return false;
+            }
+            req.aesKey = wallet.getKeyCrypter().deriveKey(password);
+        }
+        wallet.completeTx(req);  // may throw InsufficientMoneyException.
+        if (options.has("offline")) {
+            wallet.commitTx(req.tx);
+            return false;
+        }
+        setup();
+        return true;
+    }
+
+    private static void fetchAck(Wallet.SendRequest request, @Nullable ListenableFuture<PaymentSession.Ack> future) throws InterruptedException, ExecutionException {
+        if (future == null) {
+            // No payment_url for submission so, broadcast and wait.
+            peers.startAndWait();
+            peers.broadcastTransaction(request.tx).get();
+        } else {
+            PaymentSession.Ack ack = future.get();
+            wallet.commitTx(request.tx);
+            System.out.println("Memo from server: " + ack.getMemo());
         }
     }
 

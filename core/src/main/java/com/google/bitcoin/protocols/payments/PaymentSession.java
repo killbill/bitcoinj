@@ -18,6 +18,7 @@ package com.google.bitcoin.protocols.payments;
 
 import com.google.bitcoin.core.*;
 import com.google.bitcoin.params.MainNetParams;
+import com.google.bitcoin.protocols.payments.recurring.RecurringPaymentSession;
 import com.google.bitcoin.script.ScriptBuilder;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.utils.Threading;
@@ -125,11 +126,27 @@ public class PaymentSession {
      */
     public static ListenableFuture<PaymentSession> createFromBitcoinUri(final BitcoinURI uri, final boolean verifyPki, @Nullable final String trustStorePath)
             throws PaymentRequestException {
+        return createFromBitcoinUri(uri, verifyPki, trustStorePath);
+    }
+
+    /**
+     * Returns a future that will be notified with a PaymentSession object after it is fetched using the provided uri.
+     * uri is a BIP-72-style BitcoinURI object that specifies where the {@link Protos.PaymentRequest} object may
+     * be fetched in the r= parameter.
+     * If verifyPki is specified and the payment request object specifies a PKI method, then the system trust store will
+     * be used to verify the signature provided by the payment request. An exception is thrown by the future if the
+     * signature cannot be verified.
+     * If trustStorePath is not null, the trust store used for PKI verification will be loaded from the given location
+     * instead of using the system default trust store location.
+     * If walletDirectory is not null, recurring payments will be stored at that location.
+     */
+    public static ListenableFuture<PaymentSession> createFromBitcoinUri(final BitcoinURI uri, final boolean verifyPki, @Nullable final String trustStorePath, @Nullable final File walletDirectory)
+            throws PaymentRequestException {
         String url = uri.getPaymentRequestUrl();
         if (url == null)
             throw new PaymentRequestException.InvalidPaymentRequestURL("No payment request URL (r= parameter) in BitcoinURI " + uri);
         try {
-            return fetchPaymentRequest(new URI(url), verifyPki, trustStorePath);
+            return fetchPaymentRequest(new URI(url), verifyPki, trustStorePath, walletDirectory);
         } catch (URISyntaxException e) {
             throw new PaymentRequestException.InvalidPaymentRequestURL(e);
         }
@@ -169,16 +186,31 @@ public class PaymentSession {
      */
     public static ListenableFuture<PaymentSession> createFromUrl(final String url, final boolean verifyPki, @Nullable final String trustStorePath)
             throws PaymentRequestException {
+        return createFromUrl(url, verifyPki, trustStorePath, null);
+    }
+
+    /**
+     * Returns a future that will be notified with a PaymentSession object after it is fetched using the provided url.
+     * url is an address where the {@link Protos.PaymentRequest} object may be fetched.
+     * If the payment request object specifies a PKI method, then the system trust store will
+     * be used to verify the signature provided by the payment request. An exception is thrown by the future if the
+     * signature cannot be verified.
+     * If trustStorePath is not null, the trust store used for PKI verification will be loaded from the given location
+     * instead of using the system default trust store location.
+     * If walletDirectory is not null, recurring payments will be stored at that location.
+     */
+    public static ListenableFuture<PaymentSession> createFromUrl(final String url, final boolean verifyPki, @Nullable final String trustStorePath, @Nullable final File walletDirectory)
+            throws PaymentRequestException {
         if (url == null)
             throw new PaymentRequestException.InvalidPaymentRequestURL("null paymentRequestUrl");
         try {
-            return fetchPaymentRequest(new URI(url), verifyPki, trustStorePath);
-        } catch(URISyntaxException e) {
+            return fetchPaymentRequest(new URI(url), verifyPki, trustStorePath, walletDirectory);
+        } catch (URISyntaxException e) {
             throw new PaymentRequestException.InvalidPaymentRequestURL(e);
         }
     }
 
-    private static ListenableFuture<PaymentSession> fetchPaymentRequest(final URI uri, final boolean verifyPki, @Nullable final String trustStorePath) {
+    private static ListenableFuture<PaymentSession> fetchPaymentRequest(final URI uri, final boolean verifyPki, @Nullable final String trustStorePath, @Nullable final File walletDirectory) {
         return executor.submit(new Callable<PaymentSession>() {
             @Override
             public PaymentSession call() throws Exception {
@@ -186,7 +218,14 @@ public class PaymentSession {
                 connection.setRequestProperty("Accept", "application/bitcoin-paymentrequest");
                 connection.setUseCaches(false);
                 Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(connection.getInputStream());
-                return new PaymentSession(paymentRequest, verifyPki, trustStorePath);
+
+                final PaymentSession paymentSession = new PaymentSession(paymentRequest, verifyPki, trustStorePath);
+
+                if (walletDirectory != null) {
+                    RecurringPaymentSession.storeRecurringPaymentInfoIfRequired(paymentSession.getPaymentDetails(), walletDirectory);
+                }
+
+                return paymentSession;
             }
         });
     }
@@ -240,6 +279,10 @@ public class PaymentSession {
         public String getMemo() {
             return memo;
         }
+    }
+
+    public Protos.PaymentDetails getPaymentDetails() {
+        return paymentDetails;
     }
 
     /**

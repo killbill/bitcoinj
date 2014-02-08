@@ -8,6 +8,106 @@ public final class Protos {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  /**
+   * Protobuf enum {@code payments.PaymentFrequencyType}
+   */
+  public enum PaymentFrequencyType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>WEEKLY = 1;</code>
+     */
+    WEEKLY(0, 1),
+    /**
+     * <code>MONTHLY = 2;</code>
+     */
+    MONTHLY(1, 2),
+    /**
+     * <code>QUARTERLY = 3;</code>
+     */
+    QUARTERLY(2, 3),
+    /**
+     * <code>ANNUAL = 4;</code>
+     */
+    ANNUAL(3, 4),
+    ;
+
+    /**
+     * <code>WEEKLY = 1;</code>
+     */
+    public static final int WEEKLY_VALUE = 1;
+    /**
+     * <code>MONTHLY = 2;</code>
+     */
+    public static final int MONTHLY_VALUE = 2;
+    /**
+     * <code>QUARTERLY = 3;</code>
+     */
+    public static final int QUARTERLY_VALUE = 3;
+    /**
+     * <code>ANNUAL = 4;</code>
+     */
+    public static final int ANNUAL_VALUE = 4;
+
+
+    public final int getNumber() { return value; }
+
+    public static PaymentFrequencyType valueOf(int value) {
+      switch (value) {
+        case 1: return WEEKLY;
+        case 2: return MONTHLY;
+        case 3: return QUARTERLY;
+        case 4: return ANNUAL;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<PaymentFrequencyType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<PaymentFrequencyType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<PaymentFrequencyType>() {
+            public PaymentFrequencyType findValueByNumber(int number) {
+              return PaymentFrequencyType.valueOf(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return org.bitcoin.protocols.payments.Protos.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final PaymentFrequencyType[] VALUES = values();
+
+    public static PaymentFrequencyType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int index;
+    private final int value;
+
+    private PaymentFrequencyType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:payments.PaymentFrequencyType)
+  }
+
   public interface OutputOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
@@ -750,6 +850,24 @@ public final class Protos {
      * </pre>
      */
     com.google.protobuf.ByteString getMerchantData();
+
+    // optional bytes serialized_recurring_payment_details = 8;
+    /**
+     * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+     *
+     * <pre>
+     * RecurringPaymentDetails
+     * </pre>
+     */
+    boolean hasSerializedRecurringPaymentDetails();
+    /**
+     * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+     *
+     * <pre>
+     * RecurringPaymentDetails
+     * </pre>
+     */
+    com.google.protobuf.ByteString getSerializedRecurringPaymentDetails();
   }
   /**
    * Protobuf type {@code payments.PaymentDetails}
@@ -838,6 +956,11 @@ public final class Protos {
             case 58: {
               bitField0_ |= 0x00000020;
               merchantData_ = input.readBytes();
+              break;
+            }
+            case 66: {
+              bitField0_ |= 0x00000040;
+              serializedRecurringPaymentDetails_ = input.readBytes();
               break;
             }
           }
@@ -1176,6 +1299,30 @@ public final class Protos {
       return merchantData_;
     }
 
+    // optional bytes serialized_recurring_payment_details = 8;
+    public static final int SERIALIZED_RECURRING_PAYMENT_DETAILS_FIELD_NUMBER = 8;
+    private com.google.protobuf.ByteString serializedRecurringPaymentDetails_;
+    /**
+     * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+     *
+     * <pre>
+     * RecurringPaymentDetails
+     * </pre>
+     */
+    public boolean hasSerializedRecurringPaymentDetails() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+     *
+     * <pre>
+     * RecurringPaymentDetails
+     * </pre>
+     */
+    public com.google.protobuf.ByteString getSerializedRecurringPaymentDetails() {
+      return serializedRecurringPaymentDetails_;
+    }
+
     private void initFields() {
       network_ = "main";
       outputs_ = java.util.Collections.emptyList();
@@ -1184,6 +1331,7 @@ public final class Protos {
       memo_ = "";
       paymentUrl_ = "";
       merchantData_ = com.google.protobuf.ByteString.EMPTY;
+      serializedRecurringPaymentDetails_ = com.google.protobuf.ByteString.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1228,6 +1376,9 @@ public final class Protos {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeBytes(7, merchantData_);
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(8, serializedRecurringPaymentDetails_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1264,6 +1415,10 @@ public final class Protos {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(7, merchantData_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(8, serializedRecurringPaymentDetails_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1400,6 +1555,8 @@ public final class Protos {
         bitField0_ = (bitField0_ & ~0x00000020);
         merchantData_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000040);
+        serializedRecurringPaymentDetails_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -1461,6 +1618,10 @@ public final class Protos {
           to_bitField0_ |= 0x00000020;
         }
         result.merchantData_ = merchantData_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.serializedRecurringPaymentDetails_ = serializedRecurringPaymentDetails_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1526,6 +1687,9 @@ public final class Protos {
         }
         if (other.hasMerchantData()) {
           setMerchantData(other.getMerchantData());
+        }
+        if (other.hasSerializedRecurringPaymentDetails()) {
+          setSerializedRecurringPaymentDetails(other.getSerializedRecurringPaymentDetails());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2316,6 +2480,58 @@ public final class Protos {
       public Builder clearMerchantData() {
         bitField0_ = (bitField0_ & ~0x00000040);
         merchantData_ = getDefaultInstance().getMerchantData();
+        onChanged();
+        return this;
+      }
+
+      // optional bytes serialized_recurring_payment_details = 8;
+      private com.google.protobuf.ByteString serializedRecurringPaymentDetails_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+       *
+       * <pre>
+       * RecurringPaymentDetails
+       * </pre>
+       */
+      public boolean hasSerializedRecurringPaymentDetails() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+       *
+       * <pre>
+       * RecurringPaymentDetails
+       * </pre>
+       */
+      public com.google.protobuf.ByteString getSerializedRecurringPaymentDetails() {
+        return serializedRecurringPaymentDetails_;
+      }
+      /**
+       * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+       *
+       * <pre>
+       * RecurringPaymentDetails
+       * </pre>
+       */
+      public Builder setSerializedRecurringPaymentDetails(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
+        serializedRecurringPaymentDetails_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes serialized_recurring_payment_details = 8;</code>
+       *
+       * <pre>
+       * RecurringPaymentDetails
+       * </pre>
+       */
+      public Builder clearSerializedRecurringPaymentDetails() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        serializedRecurringPaymentDetails_ = getDefaultInstance().getSerializedRecurringPaymentDetails();
         onChanged();
         return this;
       }
@@ -5911,6 +6127,881 @@ public final class Protos {
     // @@protoc_insertion_point(class_scope:payments.PaymentACK)
   }
 
+  public interface RecurringPaymentDetailsOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required string polling_url = 1;
+    /**
+     * <code>required string polling_url = 1;</code>
+     *
+     * <pre>
+     * URL to poll to get the next PaymentRequest
+     * </pre>
+     */
+    boolean hasPollingUrl();
+    /**
+     * <code>required string polling_url = 1;</code>
+     *
+     * <pre>
+     * URL to poll to get the next PaymentRequest
+     * </pre>
+     */
+    java.lang.String getPollingUrl();
+    /**
+     * <code>required string polling_url = 1;</code>
+     *
+     * <pre>
+     * URL to poll to get the next PaymentRequest
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getPollingUrlBytes();
+
+    // optional .payments.PaymentFrequencyType payment_frequency_type = 2;
+    /**
+     * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+     *
+     * <pre>
+     * Expected frequency
+     * </pre>
+     */
+    boolean hasPaymentFrequencyType();
+    /**
+     * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+     *
+     * <pre>
+     * Expected frequency
+     * </pre>
+     */
+    org.bitcoin.protocols.payments.Protos.PaymentFrequencyType getPaymentFrequencyType();
+
+    // optional uint64 max_payment_per_period = 3;
+    /**
+     * <code>optional uint64 max_payment_per_period = 3;</code>
+     *
+     * <pre>
+     * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+     * </pre>
+     */
+    boolean hasMaxPaymentPerPeriod();
+    /**
+     * <code>optional uint64 max_payment_per_period = 3;</code>
+     *
+     * <pre>
+     * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+     * </pre>
+     */
+    long getMaxPaymentPerPeriod();
+
+    // optional uint64 max_payment_amount = 4;
+    /**
+     * <code>optional uint64 max_payment_amount = 4;</code>
+     *
+     * <pre>
+     * Max payment amount (e.g. no more than 3 BTC per payment)
+     * </pre>
+     */
+    boolean hasMaxPaymentAmount();
+    /**
+     * <code>optional uint64 max_payment_amount = 4;</code>
+     *
+     * <pre>
+     * Max payment amount (e.g. no more than 3 BTC per payment)
+     * </pre>
+     */
+    long getMaxPaymentAmount();
+  }
+  /**
+   * Protobuf type {@code payments.RecurringPaymentDetails}
+   */
+  public static final class RecurringPaymentDetails extends
+      com.google.protobuf.GeneratedMessage
+      implements RecurringPaymentDetailsOrBuilder {
+    // Use RecurringPaymentDetails.newBuilder() to construct.
+    private RecurringPaymentDetails(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private RecurringPaymentDetails(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final RecurringPaymentDetails defaultInstance;
+    public static RecurringPaymentDetails getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public RecurringPaymentDetails getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RecurringPaymentDetails(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              pollingUrl_ = input.readBytes();
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              org.bitcoin.protocols.payments.Protos.PaymentFrequencyType value = org.bitcoin.protocols.payments.Protos.PaymentFrequencyType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                paymentFrequencyType_ = value;
+              }
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              maxPaymentPerPeriod_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              maxPaymentAmount_ = input.readUInt64();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.bitcoin.protocols.payments.Protos.internal_static_payments_RecurringPaymentDetails_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.bitcoin.protocols.payments.Protos.internal_static_payments_RecurringPaymentDetails_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.class, org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<RecurringPaymentDetails> PARSER =
+        new com.google.protobuf.AbstractParser<RecurringPaymentDetails>() {
+      public RecurringPaymentDetails parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RecurringPaymentDetails(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RecurringPaymentDetails> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string polling_url = 1;
+    public static final int POLLING_URL_FIELD_NUMBER = 1;
+    private java.lang.Object pollingUrl_;
+    /**
+     * <code>required string polling_url = 1;</code>
+     *
+     * <pre>
+     * URL to poll to get the next PaymentRequest
+     * </pre>
+     */
+    public boolean hasPollingUrl() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string polling_url = 1;</code>
+     *
+     * <pre>
+     * URL to poll to get the next PaymentRequest
+     * </pre>
+     */
+    public java.lang.String getPollingUrl() {
+      java.lang.Object ref = pollingUrl_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          pollingUrl_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string polling_url = 1;</code>
+     *
+     * <pre>
+     * URL to poll to get the next PaymentRequest
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getPollingUrlBytes() {
+      java.lang.Object ref = pollingUrl_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pollingUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional .payments.PaymentFrequencyType payment_frequency_type = 2;
+    public static final int PAYMENT_FREQUENCY_TYPE_FIELD_NUMBER = 2;
+    private org.bitcoin.protocols.payments.Protos.PaymentFrequencyType paymentFrequencyType_;
+    /**
+     * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+     *
+     * <pre>
+     * Expected frequency
+     * </pre>
+     */
+    public boolean hasPaymentFrequencyType() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+     *
+     * <pre>
+     * Expected frequency
+     * </pre>
+     */
+    public org.bitcoin.protocols.payments.Protos.PaymentFrequencyType getPaymentFrequencyType() {
+      return paymentFrequencyType_;
+    }
+
+    // optional uint64 max_payment_per_period = 3;
+    public static final int MAX_PAYMENT_PER_PERIOD_FIELD_NUMBER = 3;
+    private long maxPaymentPerPeriod_;
+    /**
+     * <code>optional uint64 max_payment_per_period = 3;</code>
+     *
+     * <pre>
+     * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+     * </pre>
+     */
+    public boolean hasMaxPaymentPerPeriod() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional uint64 max_payment_per_period = 3;</code>
+     *
+     * <pre>
+     * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+     * </pre>
+     */
+    public long getMaxPaymentPerPeriod() {
+      return maxPaymentPerPeriod_;
+    }
+
+    // optional uint64 max_payment_amount = 4;
+    public static final int MAX_PAYMENT_AMOUNT_FIELD_NUMBER = 4;
+    private long maxPaymentAmount_;
+    /**
+     * <code>optional uint64 max_payment_amount = 4;</code>
+     *
+     * <pre>
+     * Max payment amount (e.g. no more than 3 BTC per payment)
+     * </pre>
+     */
+    public boolean hasMaxPaymentAmount() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional uint64 max_payment_amount = 4;</code>
+     *
+     * <pre>
+     * Max payment amount (e.g. no more than 3 BTC per payment)
+     * </pre>
+     */
+    public long getMaxPaymentAmount() {
+      return maxPaymentAmount_;
+    }
+
+    private void initFields() {
+      pollingUrl_ = "";
+      paymentFrequencyType_ = org.bitcoin.protocols.payments.Protos.PaymentFrequencyType.WEEKLY;
+      maxPaymentPerPeriod_ = 0L;
+      maxPaymentAmount_ = 0L;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasPollingUrl()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getPollingUrlBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, paymentFrequencyType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt64(3, maxPaymentPerPeriod_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt64(4, maxPaymentAmount_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getPollingUrlBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, paymentFrequencyType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(3, maxPaymentPerPeriod_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(4, maxPaymentAmount_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code payments.RecurringPaymentDetails}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.bitcoin.protocols.payments.Protos.RecurringPaymentDetailsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.bitcoin.protocols.payments.Protos.internal_static_payments_RecurringPaymentDetails_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.bitcoin.protocols.payments.Protos.internal_static_payments_RecurringPaymentDetails_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.class, org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.Builder.class);
+      }
+
+      // Construct using org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        pollingUrl_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        paymentFrequencyType_ = org.bitcoin.protocols.payments.Protos.PaymentFrequencyType.WEEKLY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        maxPaymentPerPeriod_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        maxPaymentAmount_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.bitcoin.protocols.payments.Protos.internal_static_payments_RecurringPaymentDetails_descriptor;
+      }
+
+      public org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails getDefaultInstanceForType() {
+        return org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.getDefaultInstance();
+      }
+
+      public org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails build() {
+        org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails buildPartial() {
+        org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails result = new org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.pollingUrl_ = pollingUrl_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.paymentFrequencyType_ = paymentFrequencyType_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.maxPaymentPerPeriod_ = maxPaymentPerPeriod_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.maxPaymentAmount_ = maxPaymentAmount_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails) {
+          return mergeFrom((org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails other) {
+        if (other == org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.getDefaultInstance()) return this;
+        if (other.hasPollingUrl()) {
+          bitField0_ |= 0x00000001;
+          pollingUrl_ = other.pollingUrl_;
+          onChanged();
+        }
+        if (other.hasPaymentFrequencyType()) {
+          setPaymentFrequencyType(other.getPaymentFrequencyType());
+        }
+        if (other.hasMaxPaymentPerPeriod()) {
+          setMaxPaymentPerPeriod(other.getMaxPaymentPerPeriod());
+        }
+        if (other.hasMaxPaymentAmount()) {
+          setMaxPaymentAmount(other.getMaxPaymentAmount());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasPollingUrl()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required string polling_url = 1;
+      private java.lang.Object pollingUrl_ = "";
+      /**
+       * <code>required string polling_url = 1;</code>
+       *
+       * <pre>
+       * URL to poll to get the next PaymentRequest
+       * </pre>
+       */
+      public boolean hasPollingUrl() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string polling_url = 1;</code>
+       *
+       * <pre>
+       * URL to poll to get the next PaymentRequest
+       * </pre>
+       */
+      public java.lang.String getPollingUrl() {
+        java.lang.Object ref = pollingUrl_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          pollingUrl_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string polling_url = 1;</code>
+       *
+       * <pre>
+       * URL to poll to get the next PaymentRequest
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getPollingUrlBytes() {
+        java.lang.Object ref = pollingUrl_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pollingUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string polling_url = 1;</code>
+       *
+       * <pre>
+       * URL to poll to get the next PaymentRequest
+       * </pre>
+       */
+      public Builder setPollingUrl(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        pollingUrl_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string polling_url = 1;</code>
+       *
+       * <pre>
+       * URL to poll to get the next PaymentRequest
+       * </pre>
+       */
+      public Builder clearPollingUrl() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        pollingUrl_ = getDefaultInstance().getPollingUrl();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string polling_url = 1;</code>
+       *
+       * <pre>
+       * URL to poll to get the next PaymentRequest
+       * </pre>
+       */
+      public Builder setPollingUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        pollingUrl_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional .payments.PaymentFrequencyType payment_frequency_type = 2;
+      private org.bitcoin.protocols.payments.Protos.PaymentFrequencyType paymentFrequencyType_ = org.bitcoin.protocols.payments.Protos.PaymentFrequencyType.WEEKLY;
+      /**
+       * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+       *
+       * <pre>
+       * Expected frequency
+       * </pre>
+       */
+      public boolean hasPaymentFrequencyType() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+       *
+       * <pre>
+       * Expected frequency
+       * </pre>
+       */
+      public org.bitcoin.protocols.payments.Protos.PaymentFrequencyType getPaymentFrequencyType() {
+        return paymentFrequencyType_;
+      }
+      /**
+       * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+       *
+       * <pre>
+       * Expected frequency
+       * </pre>
+       */
+      public Builder setPaymentFrequencyType(org.bitcoin.protocols.payments.Protos.PaymentFrequencyType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        paymentFrequencyType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .payments.PaymentFrequencyType payment_frequency_type = 2;</code>
+       *
+       * <pre>
+       * Expected frequency
+       * </pre>
+       */
+      public Builder clearPaymentFrequencyType() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        paymentFrequencyType_ = org.bitcoin.protocols.payments.Protos.PaymentFrequencyType.WEEKLY;
+        onChanged();
+        return this;
+      }
+
+      // optional uint64 max_payment_per_period = 3;
+      private long maxPaymentPerPeriod_ ;
+      /**
+       * <code>optional uint64 max_payment_per_period = 3;</code>
+       *
+       * <pre>
+       * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+       * </pre>
+       */
+      public boolean hasMaxPaymentPerPeriod() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional uint64 max_payment_per_period = 3;</code>
+       *
+       * <pre>
+       * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+       * </pre>
+       */
+      public long getMaxPaymentPerPeriod() {
+        return maxPaymentPerPeriod_;
+      }
+      /**
+       * <code>optional uint64 max_payment_per_period = 3;</code>
+       *
+       * <pre>
+       * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+       * </pre>
+       */
+      public Builder setMaxPaymentPerPeriod(long value) {
+        bitField0_ |= 0x00000004;
+        maxPaymentPerPeriod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint64 max_payment_per_period = 3;</code>
+       *
+       * <pre>
+       * Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+       * </pre>
+       */
+      public Builder clearMaxPaymentPerPeriod() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        maxPaymentPerPeriod_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // optional uint64 max_payment_amount = 4;
+      private long maxPaymentAmount_ ;
+      /**
+       * <code>optional uint64 max_payment_amount = 4;</code>
+       *
+       * <pre>
+       * Max payment amount (e.g. no more than 3 BTC per payment)
+       * </pre>
+       */
+      public boolean hasMaxPaymentAmount() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional uint64 max_payment_amount = 4;</code>
+       *
+       * <pre>
+       * Max payment amount (e.g. no more than 3 BTC per payment)
+       * </pre>
+       */
+      public long getMaxPaymentAmount() {
+        return maxPaymentAmount_;
+      }
+      /**
+       * <code>optional uint64 max_payment_amount = 4;</code>
+       *
+       * <pre>
+       * Max payment amount (e.g. no more than 3 BTC per payment)
+       * </pre>
+       */
+      public Builder setMaxPaymentAmount(long value) {
+        bitField0_ |= 0x00000008;
+        maxPaymentAmount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint64 max_payment_amount = 4;</code>
+       *
+       * <pre>
+       * Max payment amount (e.g. no more than 3 BTC per payment)
+       * </pre>
+       */
+      public Builder clearMaxPaymentAmount() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        maxPaymentAmount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:payments.RecurringPaymentDetails)
+    }
+
+    static {
+      defaultInstance = new RecurringPaymentDetails(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:payments.RecurringPaymentDetails)
+  }
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_payments_Output_descriptor;
   private static
@@ -5941,6 +7032,11 @@ public final class Protos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_payments_PaymentACK_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_payments_RecurringPaymentDetails_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_payments_RecurringPaymentDetails_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5951,22 +7047,29 @@ public final class Protos {
   static {
     java.lang.String[] descriptorData = {
       "\n\024paymentrequest.proto\022\010payments\"+\n\006Outp" +
-      "ut\022\021\n\006amount\030\001 \001(\004:\0010\022\016\n\006script\030\002 \002(\014\"\243\001" +
+      "ut\022\021\n\006amount\030\001 \001(\004:\0010\022\016\n\006script\030\002 \002(\014\"\321\001" +
       "\n\016PaymentDetails\022\025\n\007network\030\001 \001(\t:\004main\022" +
       "!\n\007outputs\030\002 \003(\0132\020.payments.Output\022\014\n\004ti" +
       "me\030\003 \002(\004\022\017\n\007expires\030\004 \001(\004\022\014\n\004memo\030\005 \001(\t\022" +
       "\023\n\013payment_url\030\006 \001(\t\022\025\n\rmerchant_data\030\007 " +
-      "\001(\014\"\225\001\n\016PaymentRequest\022\"\n\027payment_detail" +
-      "s_version\030\001 \001(\r:\0011\022\026\n\010pki_type\030\002 \001(\t:\004no" +
-      "ne\022\020\n\010pki_data\030\003 \001(\014\022\"\n\032serialized_payme" +
-      "nt_details\030\004 \002(\014\022\021\n\tsignature\030\005 \001(\014\"\'\n\020X",
-      "509Certificates\022\023\n\013certificate\030\001 \003(\014\"i\n\007" +
-      "Payment\022\025\n\rmerchant_data\030\001 \001(\014\022\024\n\014transa" +
-      "ctions\030\002 \003(\014\022#\n\trefund_to\030\003 \003(\0132\020.paymen" +
-      "ts.Output\022\014\n\004memo\030\004 \001(\t\">\n\nPaymentACK\022\"\n" +
-      "\007payment\030\001 \002(\0132\021.payments.Payment\022\014\n\004mem" +
-      "o\030\002 \001(\tB(\n\036org.bitcoin.protocols.payment" +
-      "sB\006Protos"
+      "\001(\014\022,\n$serialized_recurring_payment_deta" +
+      "ils\030\010 \001(\014\"\225\001\n\016PaymentRequest\022\"\n\027payment_" +
+      "details_version\030\001 \001(\r:\0011\022\026\n\010pki_type\030\002 \001" +
+      "(\t:\004none\022\020\n\010pki_data\030\003 \001(\014\022\"\n\032serialized",
+      "_payment_details\030\004 \002(\014\022\021\n\tsignature\030\005 \001(" +
+      "\014\"\'\n\020X509Certificates\022\023\n\013certificate\030\001 \003" +
+      "(\014\"i\n\007Payment\022\025\n\rmerchant_data\030\001 \001(\014\022\024\n\014" +
+      "transactions\030\002 \003(\014\022#\n\trefund_to\030\003 \003(\0132\020." +
+      "payments.Output\022\014\n\004memo\030\004 \001(\t\">\n\nPayment" +
+      "ACK\022\"\n\007payment\030\001 \002(\0132\021.payments.Payment\022" +
+      "\014\n\004memo\030\002 \001(\t\"\252\001\n\027RecurringPaymentDetail" +
+      "s\022\023\n\013polling_url\030\001 \002(\t\022>\n\026payment_freque" +
+      "ncy_type\030\002 \001(\0162\036.payments.PaymentFrequen" +
+      "cyType\022\036\n\026max_payment_per_period\030\003 \001(\004\022\032",
+      "\n\022max_payment_amount\030\004 \001(\004*J\n\024PaymentFre" +
+      "quencyType\022\n\n\006WEEKLY\020\001\022\013\n\007MONTHLY\020\002\022\r\n\tQ" +
+      "UARTERLY\020\003\022\n\n\006ANNUAL\020\004B(\n\036org.bitcoin.pr" +
+      "otocols.paymentsB\006Protos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -5984,7 +7087,7 @@ public final class Protos {
           internal_static_payments_PaymentDetails_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_payments_PaymentDetails_descriptor,
-              new java.lang.String[] { "Network", "Outputs", "Time", "Expires", "Memo", "PaymentUrl", "MerchantData", });
+              new java.lang.String[] { "Network", "Outputs", "Time", "Expires", "Memo", "PaymentUrl", "MerchantData", "SerializedRecurringPaymentDetails", });
           internal_static_payments_PaymentRequest_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_payments_PaymentRequest_fieldAccessorTable = new
@@ -6009,6 +7112,12 @@ public final class Protos {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_payments_PaymentACK_descriptor,
               new java.lang.String[] { "Payment", "Memo", });
+          internal_static_payments_RecurringPaymentDetails_descriptor =
+            getDescriptor().getMessageTypes().get(6);
+          internal_static_payments_RecurringPaymentDetails_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_payments_RecurringPaymentDetails_descriptor,
+              new java.lang.String[] { "PollingUrl", "PaymentFrequencyType", "MaxPaymentPerPeriod", "MaxPaymentAmount", });
           return null;
         }
       };
