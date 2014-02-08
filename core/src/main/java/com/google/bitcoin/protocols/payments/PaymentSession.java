@@ -126,7 +126,7 @@ public class PaymentSession {
      */
     public static ListenableFuture<PaymentSession> createFromBitcoinUri(final BitcoinURI uri, final boolean verifyPki, @Nullable final String trustStorePath)
             throws PaymentRequestException {
-        return createFromBitcoinUri(uri, verifyPki, trustStorePath);
+        return createFromBitcoinUri(uri, verifyPki, trustStorePath, null);
     }
 
     /**
