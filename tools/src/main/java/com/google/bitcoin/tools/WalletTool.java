@@ -26,6 +26,7 @@ import com.google.bitcoin.params.TestNet3Params;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
 import com.google.bitcoin.protocols.payments.recurring.PollingCallback;
+import com.google.bitcoin.protocols.payments.recurring.RecurringAck;
 import com.google.bitcoin.protocols.payments.recurring.RecurringPaymentSession;
 import com.google.bitcoin.store.*;
 import com.google.bitcoin.uri.BitcoinURI;
@@ -590,9 +591,9 @@ public class WalletTool {
             }
 
             @Override
-            public void onAck(Wallet.SendRequest request, @Nullable ListenableFuture<PaymentSession.Ack> future) {
+            public void onAck(Wallet.SendRequest request, RecurringAck recurringAck) {
                 try {
-                    WalletTool.fetchAck(request, future);
+                    WalletTool.fetchAck(request, recurringAck.getAck());
                 } catch (Exception e) {
                     onException(e, null, null);
                 }

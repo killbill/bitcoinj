@@ -102,7 +102,9 @@ public class PollingRunnable implements Runnable {
 
             // Send it
             ListenableFuture<PaymentSession.Ack> ack = newSession.sendPayment(ImmutableList.<Transaction>of(newSendRequest.tx), null, null);
-            callback.onAck(newSendRequest, ack);
+
+            final RecurringAck recurringAck = new RecurringAck(ack, merchantId, subscriptionId, contract, newSession.getPaymentDetails());
+            callback.onAck(newSendRequest, recurringAck);
         }
 
         return nbPaymentsSent;

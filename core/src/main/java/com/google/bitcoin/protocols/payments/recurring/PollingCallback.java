@@ -16,8 +16,6 @@
 package com.google.bitcoin.protocols.payments.recurring;
 
 import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.protocols.payments.PaymentSession;
-import com.google.common.util.concurrent.ListenableFuture;
 import org.bitcoin.protocols.payments.Protos;
 
 import javax.annotation.Nullable;
@@ -49,7 +47,7 @@ public interface PollingCallback {
      * @param request SendRequest object associated with the Payment
      * @param ack     Ack from the merchant
      */
-    public void onAck(Wallet.SendRequest request, @Nullable ListenableFuture<PaymentSession.Ack> ack);
+    public void onAck(Wallet.SendRequest request, RecurringAck ack);
 
     /**
      * Generic exception handler
