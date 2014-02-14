@@ -53,6 +53,7 @@ public class Subscriptions {
     public Subscriptions(File walletDirectory) {
         this.walletDirectory = walletDirectory;
         this.serializer = new RecurringPaymentProtobufSerializer();
+        this.subscriptions = ImmutableList.of();
     }
 
     public void load() throws IOException {
@@ -67,7 +68,7 @@ public class Subscriptions {
         }
     }
 
-    public List<Protos.PaymentDetails> getAllContracts() {
+    public List<Protos.PaymentDetails> getAllSubscriptionContracts() {
         return Lists.transform(subscriptions, new Function<org.bitcoin.protocols.subscriptions.Protos.Subscription, Protos.PaymentDetails>() {
             @Override
             public Protos.PaymentDetails apply(org.bitcoin.protocols.subscriptions.Protos.Subscription input) {

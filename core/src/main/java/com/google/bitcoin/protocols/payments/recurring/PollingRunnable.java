@@ -54,12 +54,11 @@ public class PollingRunnable implements Runnable {
             subscriptions.load();
         } catch (Exception e) {
             callback.onException(e, null, null);
-            return;
         }
 
         int nbPaymentsSent = 0;
         try {
-            for (Protos.PaymentDetails subscriptionContracts : subscriptions.getAllContracts()) {
+            for (Protos.PaymentDetails subscriptionContracts : subscriptions.getAllSubscriptionContracts()) {
 
                 Preconditions.checkState(subscriptionContracts.hasSerializedRecurringPaymentDetails());
                 Protos.RecurringPaymentDetails recurringPaymentDetailsForContract = Protos.RecurringPaymentDetails.newBuilder().mergeFrom(subscriptionContracts.getSerializedRecurringPaymentDetails()).build();
