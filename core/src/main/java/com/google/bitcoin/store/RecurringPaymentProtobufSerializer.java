@@ -45,11 +45,15 @@ public class RecurringPaymentProtobufSerializer {
         final FileInputStream input = new FileInputStream(subscriptionsFile);
         List<Protos.Subscription> allSubscriptions = loadSubscriptions(input);
 
+        boolean foundSubscription = false;
         List<Protos.Subscription> subscriptions = Lists.newLinkedList();
         for (Protos.Subscription subscription : allSubscriptions) {
             // Check if we need to update it
             if (Objects.equals(subscription.getMerchantId(), retrievedRecurringPaymentDetails.getMerchantId()) &&
                     Objects.equals(subscription.getSubscriptionId(), retrievedRecurringPaymentDetails.getSubscriptionId())) {
+
+                foundSubscription = true;
+
                 org.bitcoin.protocols.payments.Protos.PaymentDetails existingContractsOnDisk = subscription.getSubscriptionContracts();
                 List<org.bitcoin.protocols.payments.Protos.RecurringPaymentContract> retrievedContracts = retrievedRecurringPaymentDetails.getContractsList();
                 org.bitcoin.protocols.payments.Protos.PaymentDetails refreshedContracts = refreshContractsForSubscription(existingContractsOnDisk, retrievedContracts);
@@ -58,6 +62,15 @@ public class RecurringPaymentProtobufSerializer {
                 subscription = Protos.Subscription.newBuilder(subscription).setSubscriptionContracts(refreshedContracts).build();
             }
             subscriptions.add(subscription);
+        }
+
+        if (!foundSubscription) {
+            Protos.Subscription newSubscription =  Protos.Subscription.newBuilder()
+                    .setMerchantId(retrievedRecurringPaymentDetails.getMerchantId())
+                    .setSubscriptionId(retrievedRecurringPaymentDetails.getSubscriptionId())
+                    .setSubscriptionContracts(paymentDetailsContract)
+                    .build();
+            subscriptions.add(newSubscription);
         }
 
         // We are recreating the list of recurring payments in a temp file that we will atomically move upon completion
