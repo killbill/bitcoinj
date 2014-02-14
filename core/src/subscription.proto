@@ -22,7 +22,15 @@ option java_outer_classname = "Protos";
 
 import "paymentrequest.proto";
 
+message SubscriptionPayment {
+  required bytes contract_id = 1;
+  required PaymentDetails payment_for_contract = 2;
+}
+
 message Subscription {
-  required PaymentDetails contract = 1;
-  repeated PaymentDetails payments_for_period = 2;
+  optional uint32 subscription_version = 1 [default = 1];
+  required string merchant_id = 2;
+  required bytes subscription_id = 3;
+  required PaymentDetails subscription_contracts = 4;
+  repeated SubscriptionPayment payments_for_period = 5;
 }

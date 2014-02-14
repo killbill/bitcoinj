@@ -594,12 +594,12 @@ public class WalletTool {
                 try {
                     WalletTool.fetchAck(request, future);
                 } catch (Exception e) {
-                    onException(e, null);
+                    onException(e, null, null);
                 }
             }
 
             @Override
-            public void onException(Exception e, @Nullable org.bitcoin.protocols.payments.Protos.PaymentDetails contract) {
+            public void onException(Exception e, @Nullable org.bitcoin.protocols.payments.Protos.PaymentDetails contract, org.bitcoin.protocols.payments.Protos.RecurringPaymentContract activeContract) {
                 System.err.println("Got exception " + e.getMessage());
             }
 

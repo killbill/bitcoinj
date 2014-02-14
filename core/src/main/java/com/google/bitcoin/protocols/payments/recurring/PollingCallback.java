@@ -54,10 +54,11 @@ public interface PollingCallback {
     /**
      * Generic exception handler
      *
-     * @param e        exception thrown
-     * @param contract associated contract
+     * @param e              exception thrown
+     * @param contract       associated contract
+     * @param activeContract contract being polled
      */
-    public void onException(Exception e, @Nullable Protos.PaymentDetails contract);
+    public void onException(Exception e, @Nullable Protos.PaymentDetails contract, @Nullable Protos.RecurringPaymentContract activeContract);
 
     /**
      * Called at the end of each polling run, after merchants have been polled for each recurring payment

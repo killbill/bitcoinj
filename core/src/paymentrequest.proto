@@ -76,8 +76,16 @@ enum PaymentFrequencyType {
         ANNUAL = 4;
 }
 message RecurringPaymentDetails {
-        required string polling_url = 1;                          // URL to poll to get the next PaymentRequest
-        optional PaymentFrequencyType payment_frequency_type = 2; // Expected frequency
-        optional uint64 max_payment_per_period  = 3;              // Max payment amount within that frequency (e.g. no more than 5 BTC per month)
-        optional uint64 max_payment_amount = 4;                   // Max payment amount (e.g. no more than 3 BTC per payment)
+        required string merchant_id = 1;                 // Namespace for the merchant such as org.foo.bar
+        required bytes subscription_id = 2;              // Id for the recurring subscription
+        repeated RecurringPaymentContract contracts = 3; // Contracts associated with a given subscription
+}
+message RecurringPaymentContract {
+        required bytes contract_id = 1;                           // Unique id for a given contract
+        required string polling_url = 2;                          // URL to poll to get the next PaymentRequest
+        required uint64 starts = 3;                               // Timestamp; when this contract starts
+        optional uint64 ends = 4;                                 // Timestamp; when this contract should be considered invalid
+        optional PaymentFrequencyType payment_frequency_type = 5; // Expected payment frequency
+        optional uint64 max_payment_per_period  = 6;              // Max payment amount within that frequency (e.g. no more than 5 BTC per month)
+        optional uint64 max_payment_amount = 7;                   // Max payment amount (e.g. no more than 3 BTC per payment)
 }

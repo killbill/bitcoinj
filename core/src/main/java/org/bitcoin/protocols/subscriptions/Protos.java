@@ -8,46 +8,696 @@ public final class Protos {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  public interface SubscriptionPaymentOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required bytes contract_id = 1;
+    /**
+     * <code>required bytes contract_id = 1;</code>
+     */
+    boolean hasContractId();
+    /**
+     * <code>required bytes contract_id = 1;</code>
+     */
+    com.google.protobuf.ByteString getContractId();
+
+    // required .payments.PaymentDetails payment_for_contract = 2;
+    /**
+     * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+     */
+    boolean hasPaymentForContract();
+    /**
+     * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+     */
+    org.bitcoin.protocols.payments.Protos.PaymentDetails getPaymentForContract();
+    /**
+     * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+     */
+    org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getPaymentForContractOrBuilder();
+  }
+  /**
+   * Protobuf type {@code payments.SubscriptionPayment}
+   */
+  public static final class SubscriptionPayment extends
+      com.google.protobuf.GeneratedMessage
+      implements SubscriptionPaymentOrBuilder {
+    // Use SubscriptionPayment.newBuilder() to construct.
+    private SubscriptionPayment(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private SubscriptionPayment(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final SubscriptionPayment defaultInstance;
+    public static SubscriptionPayment getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public SubscriptionPayment getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SubscriptionPayment(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              contractId_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = paymentForContract_.toBuilder();
+              }
+              paymentForContract_ = input.readMessage(org.bitcoin.protocols.payments.Protos.PaymentDetails.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(paymentForContract_);
+                paymentForContract_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.bitcoin.protocols.subscriptions.Protos.internal_static_payments_SubscriptionPayment_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.bitcoin.protocols.subscriptions.Protos.internal_static_payments_SubscriptionPayment_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.class, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<SubscriptionPayment> PARSER =
+        new com.google.protobuf.AbstractParser<SubscriptionPayment>() {
+      public SubscriptionPayment parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SubscriptionPayment(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SubscriptionPayment> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required bytes contract_id = 1;
+    public static final int CONTRACT_ID_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString contractId_;
+    /**
+     * <code>required bytes contract_id = 1;</code>
+     */
+    public boolean hasContractId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required bytes contract_id = 1;</code>
+     */
+    public com.google.protobuf.ByteString getContractId() {
+      return contractId_;
+    }
+
+    // required .payments.PaymentDetails payment_for_contract = 2;
+    public static final int PAYMENT_FOR_CONTRACT_FIELD_NUMBER = 2;
+    private org.bitcoin.protocols.payments.Protos.PaymentDetails paymentForContract_;
+    /**
+     * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+     */
+    public boolean hasPaymentForContract() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+     */
+    public org.bitcoin.protocols.payments.Protos.PaymentDetails getPaymentForContract() {
+      return paymentForContract_;
+    }
+    /**
+     * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+     */
+    public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getPaymentForContractOrBuilder() {
+      return paymentForContract_;
+    }
+
+    private void initFields() {
+      contractId_ = com.google.protobuf.ByteString.EMPTY;
+      paymentForContract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasContractId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPaymentForContract()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getPaymentForContract().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, contractId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, paymentForContract_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, contractId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, paymentForContract_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code payments.SubscriptionPayment}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.bitcoin.protocols.subscriptions.Protos.internal_static_payments_SubscriptionPayment_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.bitcoin.protocols.subscriptions.Protos.internal_static_payments_SubscriptionPayment_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.class, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder.class);
+      }
+
+      // Construct using org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPaymentForContractFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        contractId_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (paymentForContractBuilder_ == null) {
+          paymentForContract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+        } else {
+          paymentForContractBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.bitcoin.protocols.subscriptions.Protos.internal_static_payments_SubscriptionPayment_descriptor;
+      }
+
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment getDefaultInstanceForType() {
+        return org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.getDefaultInstance();
+      }
+
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment build() {
+        org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment buildPartial() {
+        org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment result = new org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.contractId_ = contractId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (paymentForContractBuilder_ == null) {
+          result.paymentForContract_ = paymentForContract_;
+        } else {
+          result.paymentForContract_ = paymentForContractBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment) {
+          return mergeFrom((org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment other) {
+        if (other == org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.getDefaultInstance()) return this;
+        if (other.hasContractId()) {
+          setContractId(other.getContractId());
+        }
+        if (other.hasPaymentForContract()) {
+          mergePaymentForContract(other.getPaymentForContract());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasContractId()) {
+          
+          return false;
+        }
+        if (!hasPaymentForContract()) {
+          
+          return false;
+        }
+        if (!getPaymentForContract().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required bytes contract_id = 1;
+      private com.google.protobuf.ByteString contractId_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes contract_id = 1;</code>
+       */
+      public boolean hasContractId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required bytes contract_id = 1;</code>
+       */
+      public com.google.protobuf.ByteString getContractId() {
+        return contractId_;
+      }
+      /**
+       * <code>required bytes contract_id = 1;</code>
+       */
+      public Builder setContractId(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        contractId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes contract_id = 1;</code>
+       */
+      public Builder clearContractId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        contractId_ = getDefaultInstance().getContractId();
+        onChanged();
+        return this;
+      }
+
+      // required .payments.PaymentDetails payment_for_contract = 2;
+      private org.bitcoin.protocols.payments.Protos.PaymentDetails paymentForContract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> paymentForContractBuilder_;
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public boolean hasPaymentForContract() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public org.bitcoin.protocols.payments.Protos.PaymentDetails getPaymentForContract() {
+        if (paymentForContractBuilder_ == null) {
+          return paymentForContract_;
+        } else {
+          return paymentForContractBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public Builder setPaymentForContract(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+        if (paymentForContractBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          paymentForContract_ = value;
+          onChanged();
+        } else {
+          paymentForContractBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public Builder setPaymentForContract(
+          org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder builderForValue) {
+        if (paymentForContractBuilder_ == null) {
+          paymentForContract_ = builderForValue.build();
+          onChanged();
+        } else {
+          paymentForContractBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public Builder mergePaymentForContract(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+        if (paymentForContractBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              paymentForContract_ != org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance()) {
+            paymentForContract_ =
+              org.bitcoin.protocols.payments.Protos.PaymentDetails.newBuilder(paymentForContract_).mergeFrom(value).buildPartial();
+          } else {
+            paymentForContract_ = value;
+          }
+          onChanged();
+        } else {
+          paymentForContractBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public Builder clearPaymentForContract() {
+        if (paymentForContractBuilder_ == null) {
+          paymentForContract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+          onChanged();
+        } else {
+          paymentForContractBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder getPaymentForContractBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getPaymentForContractFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getPaymentForContractOrBuilder() {
+        if (paymentForContractBuilder_ != null) {
+          return paymentForContractBuilder_.getMessageOrBuilder();
+        } else {
+          return paymentForContract_;
+        }
+      }
+      /**
+       * <code>required .payments.PaymentDetails payment_for_contract = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> 
+          getPaymentForContractFieldBuilder() {
+        if (paymentForContractBuilder_ == null) {
+          paymentForContractBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder>(
+                  paymentForContract_,
+                  getParentForChildren(),
+                  isClean());
+          paymentForContract_ = null;
+        }
+        return paymentForContractBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:payments.SubscriptionPayment)
+    }
+
+    static {
+      defaultInstance = new SubscriptionPayment(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:payments.SubscriptionPayment)
+  }
+
   public interface SubscriptionOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required .payments.PaymentDetails contract = 1;
+    // optional uint32 subscription_version = 1 [default = 1];
     /**
-     * <code>required .payments.PaymentDetails contract = 1;</code>
+     * <code>optional uint32 subscription_version = 1 [default = 1];</code>
      */
-    boolean hasContract();
+    boolean hasSubscriptionVersion();
     /**
-     * <code>required .payments.PaymentDetails contract = 1;</code>
+     * <code>optional uint32 subscription_version = 1 [default = 1];</code>
      */
-    org.bitcoin.protocols.payments.Protos.PaymentDetails getContract();
-    /**
-     * <code>required .payments.PaymentDetails contract = 1;</code>
-     */
-    org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getContractOrBuilder();
+    int getSubscriptionVersion();
 
-    // repeated .payments.PaymentDetails payments_for_period = 2;
+    // required string merchant_id = 2;
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>required string merchant_id = 2;</code>
      */
-    java.util.List<org.bitcoin.protocols.payments.Protos.PaymentDetails> 
+    boolean hasMerchantId();
+    /**
+     * <code>required string merchant_id = 2;</code>
+     */
+    java.lang.String getMerchantId();
+    /**
+     * <code>required string merchant_id = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getMerchantIdBytes();
+
+    // required bytes subscription_id = 3;
+    /**
+     * <code>required bytes subscription_id = 3;</code>
+     */
+    boolean hasSubscriptionId();
+    /**
+     * <code>required bytes subscription_id = 3;</code>
+     */
+    com.google.protobuf.ByteString getSubscriptionId();
+
+    // required .payments.PaymentDetails subscription_contracts = 4;
+    /**
+     * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+     */
+    boolean hasSubscriptionContracts();
+    /**
+     * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+     */
+    org.bitcoin.protocols.payments.Protos.PaymentDetails getSubscriptionContracts();
+    /**
+     * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+     */
+    org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getSubscriptionContractsOrBuilder();
+
+    // repeated .payments.SubscriptionPayment payments_for_period = 5;
+    /**
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
+     */
+    java.util.List<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment> 
         getPaymentsForPeriodList();
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
-    org.bitcoin.protocols.payments.Protos.PaymentDetails getPaymentsForPeriod(int index);
+    org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment getPaymentsForPeriod(int index);
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
     int getPaymentsForPeriodCount();
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
-    java.util.List<? extends org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> 
+    java.util.List<? extends org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder> 
         getPaymentsForPeriodOrBuilderList();
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
-    org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getPaymentsForPeriodOrBuilder(
+    org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder getPaymentsForPeriodOrBuilder(
         int index);
   }
   /**
@@ -101,25 +751,40 @@ public final class Protos {
               }
               break;
             }
-            case 10: {
-              org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
-                subBuilder = contract_.toBuilder();
-              }
-              contract_ = input.readMessage(org.bitcoin.protocols.payments.Protos.PaymentDetails.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(contract_);
-                contract_ = subBuilder.buildPartial();
-              }
+            case 8: {
               bitField0_ |= 0x00000001;
+              subscriptionVersion_ = input.readUInt32();
               break;
             }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                paymentsForPeriod_ = new java.util.ArrayList<org.bitcoin.protocols.payments.Protos.PaymentDetails>();
-                mutable_bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000002;
+              merchantId_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              subscriptionId_ = input.readBytes();
+              break;
+            }
+            case 34: {
+              org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                subBuilder = subscriptionContracts_.toBuilder();
               }
-              paymentsForPeriod_.add(input.readMessage(org.bitcoin.protocols.payments.Protos.PaymentDetails.PARSER, extensionRegistry));
+              subscriptionContracts_ = input.readMessage(org.bitcoin.protocols.payments.Protos.PaymentDetails.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(subscriptionContracts_);
+                subscriptionContracts_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                paymentsForPeriod_ = new java.util.ArrayList<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              paymentsForPeriod_.add(input.readMessage(org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.PARSER, extensionRegistry));
               break;
             }
           }
@@ -130,7 +795,7 @@ public final class Protos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           paymentsForPeriod_ = java.util.Collections.unmodifiableList(paymentsForPeriod_);
         }
         this.unknownFields = unknownFields.build();
@@ -165,66 +830,144 @@ public final class Protos {
     }
 
     private int bitField0_;
-    // required .payments.PaymentDetails contract = 1;
-    public static final int CONTRACT_FIELD_NUMBER = 1;
-    private org.bitcoin.protocols.payments.Protos.PaymentDetails contract_;
+    // optional uint32 subscription_version = 1 [default = 1];
+    public static final int SUBSCRIPTION_VERSION_FIELD_NUMBER = 1;
+    private int subscriptionVersion_;
     /**
-     * <code>required .payments.PaymentDetails contract = 1;</code>
+     * <code>optional uint32 subscription_version = 1 [default = 1];</code>
      */
-    public boolean hasContract() {
+    public boolean hasSubscriptionVersion() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .payments.PaymentDetails contract = 1;</code>
+     * <code>optional uint32 subscription_version = 1 [default = 1];</code>
      */
-    public org.bitcoin.protocols.payments.Protos.PaymentDetails getContract() {
-      return contract_;
-    }
-    /**
-     * <code>required .payments.PaymentDetails contract = 1;</code>
-     */
-    public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getContractOrBuilder() {
-      return contract_;
+    public int getSubscriptionVersion() {
+      return subscriptionVersion_;
     }
 
-    // repeated .payments.PaymentDetails payments_for_period = 2;
-    public static final int PAYMENTS_FOR_PERIOD_FIELD_NUMBER = 2;
-    private java.util.List<org.bitcoin.protocols.payments.Protos.PaymentDetails> paymentsForPeriod_;
+    // required string merchant_id = 2;
+    public static final int MERCHANT_ID_FIELD_NUMBER = 2;
+    private java.lang.Object merchantId_;
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>required string merchant_id = 2;</code>
      */
-    public java.util.List<org.bitcoin.protocols.payments.Protos.PaymentDetails> getPaymentsForPeriodList() {
+    public boolean hasMerchantId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string merchant_id = 2;</code>
+     */
+    public java.lang.String getMerchantId() {
+      java.lang.Object ref = merchantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          merchantId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string merchant_id = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMerchantIdBytes() {
+      java.lang.Object ref = merchantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        merchantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required bytes subscription_id = 3;
+    public static final int SUBSCRIPTION_ID_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString subscriptionId_;
+    /**
+     * <code>required bytes subscription_id = 3;</code>
+     */
+    public boolean hasSubscriptionId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required bytes subscription_id = 3;</code>
+     */
+    public com.google.protobuf.ByteString getSubscriptionId() {
+      return subscriptionId_;
+    }
+
+    // required .payments.PaymentDetails subscription_contracts = 4;
+    public static final int SUBSCRIPTION_CONTRACTS_FIELD_NUMBER = 4;
+    private org.bitcoin.protocols.payments.Protos.PaymentDetails subscriptionContracts_;
+    /**
+     * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+     */
+    public boolean hasSubscriptionContracts() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+     */
+    public org.bitcoin.protocols.payments.Protos.PaymentDetails getSubscriptionContracts() {
+      return subscriptionContracts_;
+    }
+    /**
+     * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+     */
+    public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getSubscriptionContractsOrBuilder() {
+      return subscriptionContracts_;
+    }
+
+    // repeated .payments.SubscriptionPayment payments_for_period = 5;
+    public static final int PAYMENTS_FOR_PERIOD_FIELD_NUMBER = 5;
+    private java.util.List<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment> paymentsForPeriod_;
+    /**
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
+     */
+    public java.util.List<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment> getPaymentsForPeriodList() {
       return paymentsForPeriod_;
     }
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
-    public java.util.List<? extends org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> 
+    public java.util.List<? extends org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder> 
         getPaymentsForPeriodOrBuilderList() {
       return paymentsForPeriod_;
     }
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
     public int getPaymentsForPeriodCount() {
       return paymentsForPeriod_.size();
     }
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
-    public org.bitcoin.protocols.payments.Protos.PaymentDetails getPaymentsForPeriod(int index) {
+    public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment getPaymentsForPeriod(int index) {
       return paymentsForPeriod_.get(index);
     }
     /**
-     * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+     * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
      */
-    public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getPaymentsForPeriodOrBuilder(
+    public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder getPaymentsForPeriodOrBuilder(
         int index) {
       return paymentsForPeriod_.get(index);
     }
 
     private void initFields() {
-      contract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+      subscriptionVersion_ = 1;
+      merchantId_ = "";
+      subscriptionId_ = com.google.protobuf.ByteString.EMPTY;
+      subscriptionContracts_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
       paymentsForPeriod_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -232,11 +975,19 @@ public final class Protos {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasContract()) {
+      if (!hasMerchantId()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getContract().isInitialized()) {
+      if (!hasSubscriptionId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSubscriptionContracts()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSubscriptionContracts().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -254,10 +1005,19 @@ public final class Protos {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, contract_);
+        output.writeUInt32(1, subscriptionVersion_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getMerchantIdBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, subscriptionId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, subscriptionContracts_);
       }
       for (int i = 0; i < paymentsForPeriod_.size(); i++) {
-        output.writeMessage(2, paymentsForPeriod_.get(i));
+        output.writeMessage(5, paymentsForPeriod_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -270,11 +1030,23 @@ public final class Protos {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, contract_);
+          .computeUInt32Size(1, subscriptionVersion_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getMerchantIdBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, subscriptionId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, subscriptionContracts_);
       }
       for (int i = 0; i < paymentsForPeriod_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, paymentsForPeriod_.get(i));
+          .computeMessageSize(5, paymentsForPeriod_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -384,7 +1156,7 @@ public final class Protos {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getContractFieldBuilder();
+          getSubscriptionContractsFieldBuilder();
           getPaymentsForPeriodFieldBuilder();
         }
       }
@@ -394,15 +1166,21 @@ public final class Protos {
 
       public Builder clear() {
         super.clear();
-        if (contractBuilder_ == null) {
-          contract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
-        } else {
-          contractBuilder_.clear();
-        }
+        subscriptionVersion_ = 1;
         bitField0_ = (bitField0_ & ~0x00000001);
+        merchantId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        subscriptionId_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (subscriptionContractsBuilder_ == null) {
+          subscriptionContracts_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+        } else {
+          subscriptionContractsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
         if (paymentsForPeriodBuilder_ == null) {
           paymentsForPeriod_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000010);
         } else {
           paymentsForPeriodBuilder_.clear();
         }
@@ -437,15 +1215,27 @@ public final class Protos {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (contractBuilder_ == null) {
-          result.contract_ = contract_;
+        result.subscriptionVersion_ = subscriptionVersion_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.merchantId_ = merchantId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.subscriptionId_ = subscriptionId_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        if (subscriptionContractsBuilder_ == null) {
+          result.subscriptionContracts_ = subscriptionContracts_;
         } else {
-          result.contract_ = contractBuilder_.build();
+          result.subscriptionContracts_ = subscriptionContractsBuilder_.build();
         }
         if (paymentsForPeriodBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
             paymentsForPeriod_ = java.util.Collections.unmodifiableList(paymentsForPeriod_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000010);
           }
           result.paymentsForPeriod_ = paymentsForPeriod_;
         } else {
@@ -467,14 +1257,25 @@ public final class Protos {
 
       public Builder mergeFrom(org.bitcoin.protocols.subscriptions.Protos.Subscription other) {
         if (other == org.bitcoin.protocols.subscriptions.Protos.Subscription.getDefaultInstance()) return this;
-        if (other.hasContract()) {
-          mergeContract(other.getContract());
+        if (other.hasSubscriptionVersion()) {
+          setSubscriptionVersion(other.getSubscriptionVersion());
+        }
+        if (other.hasMerchantId()) {
+          bitField0_ |= 0x00000002;
+          merchantId_ = other.merchantId_;
+          onChanged();
+        }
+        if (other.hasSubscriptionId()) {
+          setSubscriptionId(other.getSubscriptionId());
+        }
+        if (other.hasSubscriptionContracts()) {
+          mergeSubscriptionContracts(other.getSubscriptionContracts());
         }
         if (paymentsForPeriodBuilder_ == null) {
           if (!other.paymentsForPeriod_.isEmpty()) {
             if (paymentsForPeriod_.isEmpty()) {
               paymentsForPeriod_ = other.paymentsForPeriod_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000010);
             } else {
               ensurePaymentsForPeriodIsMutable();
               paymentsForPeriod_.addAll(other.paymentsForPeriod_);
@@ -487,7 +1288,7 @@ public final class Protos {
               paymentsForPeriodBuilder_.dispose();
               paymentsForPeriodBuilder_ = null;
               paymentsForPeriod_ = other.paymentsForPeriod_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000010);
               paymentsForPeriodBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getPaymentsForPeriodFieldBuilder() : null;
@@ -501,11 +1302,19 @@ public final class Protos {
       }
 
       public final boolean isInitialized() {
-        if (!hasContract()) {
+        if (!hasMerchantId()) {
           
           return false;
         }
-        if (!getContract().isInitialized()) {
+        if (!hasSubscriptionId()) {
+          
+          return false;
+        }
+        if (!hasSubscriptionContracts()) {
+          
+          return false;
+        }
+        if (!getSubscriptionContracts().isInitialized()) {
           
           return false;
         }
@@ -537,140 +1346,283 @@ public final class Protos {
       }
       private int bitField0_;
 
-      // required .payments.PaymentDetails contract = 1;
-      private org.bitcoin.protocols.payments.Protos.PaymentDetails contract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> contractBuilder_;
+      // optional uint32 subscription_version = 1 [default = 1];
+      private int subscriptionVersion_ = 1;
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>optional uint32 subscription_version = 1 [default = 1];</code>
        */
-      public boolean hasContract() {
+      public boolean hasSubscriptionVersion() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>optional uint32 subscription_version = 1 [default = 1];</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetails getContract() {
-        if (contractBuilder_ == null) {
-          return contract_;
+      public int getSubscriptionVersion() {
+        return subscriptionVersion_;
+      }
+      /**
+       * <code>optional uint32 subscription_version = 1 [default = 1];</code>
+       */
+      public Builder setSubscriptionVersion(int value) {
+        bitField0_ |= 0x00000001;
+        subscriptionVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 subscription_version = 1 [default = 1];</code>
+       */
+      public Builder clearSubscriptionVersion() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        subscriptionVersion_ = 1;
+        onChanged();
+        return this;
+      }
+
+      // required string merchant_id = 2;
+      private java.lang.Object merchantId_ = "";
+      /**
+       * <code>required string merchant_id = 2;</code>
+       */
+      public boolean hasMerchantId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string merchant_id = 2;</code>
+       */
+      public java.lang.String getMerchantId() {
+        java.lang.Object ref = merchantId_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          merchantId_ = s;
+          return s;
         } else {
-          return contractBuilder_.getMessage();
+          return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required string merchant_id = 2;</code>
        */
-      public Builder setContract(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
-        if (contractBuilder_ == null) {
+      public com.google.protobuf.ByteString
+          getMerchantIdBytes() {
+        java.lang.Object ref = merchantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          merchantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string merchant_id = 2;</code>
+       */
+      public Builder setMerchantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        merchantId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string merchant_id = 2;</code>
+       */
+      public Builder clearMerchantId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        merchantId_ = getDefaultInstance().getMerchantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string merchant_id = 2;</code>
+       */
+      public Builder setMerchantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        merchantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required bytes subscription_id = 3;
+      private com.google.protobuf.ByteString subscriptionId_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes subscription_id = 3;</code>
+       */
+      public boolean hasSubscriptionId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required bytes subscription_id = 3;</code>
+       */
+      public com.google.protobuf.ByteString getSubscriptionId() {
+        return subscriptionId_;
+      }
+      /**
+       * <code>required bytes subscription_id = 3;</code>
+       */
+      public Builder setSubscriptionId(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        subscriptionId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes subscription_id = 3;</code>
+       */
+      public Builder clearSubscriptionId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        subscriptionId_ = getDefaultInstance().getSubscriptionId();
+        onChanged();
+        return this;
+      }
+
+      // required .payments.PaymentDetails subscription_contracts = 4;
+      private org.bitcoin.protocols.payments.Protos.PaymentDetails subscriptionContracts_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> subscriptionContractsBuilder_;
+      /**
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+       */
+      public boolean hasSubscriptionContracts() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+       */
+      public org.bitcoin.protocols.payments.Protos.PaymentDetails getSubscriptionContracts() {
+        if (subscriptionContractsBuilder_ == null) {
+          return subscriptionContracts_;
+        } else {
+          return subscriptionContractsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
+       */
+      public Builder setSubscriptionContracts(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+        if (subscriptionContractsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          contract_ = value;
+          subscriptionContracts_ = value;
           onChanged();
         } else {
-          contractBuilder_.setMessage(value);
+          subscriptionContractsBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
        */
-      public Builder setContract(
+      public Builder setSubscriptionContracts(
           org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder builderForValue) {
-        if (contractBuilder_ == null) {
-          contract_ = builderForValue.build();
+        if (subscriptionContractsBuilder_ == null) {
+          subscriptionContracts_ = builderForValue.build();
           onChanged();
         } else {
-          contractBuilder_.setMessage(builderForValue.build());
+          subscriptionContractsBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
        */
-      public Builder mergeContract(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
-        if (contractBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              contract_ != org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance()) {
-            contract_ =
-              org.bitcoin.protocols.payments.Protos.PaymentDetails.newBuilder(contract_).mergeFrom(value).buildPartial();
+      public Builder mergeSubscriptionContracts(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+        if (subscriptionContractsBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              subscriptionContracts_ != org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance()) {
+            subscriptionContracts_ =
+              org.bitcoin.protocols.payments.Protos.PaymentDetails.newBuilder(subscriptionContracts_).mergeFrom(value).buildPartial();
           } else {
-            contract_ = value;
+            subscriptionContracts_ = value;
           }
           onChanged();
         } else {
-          contractBuilder_.mergeFrom(value);
+          subscriptionContractsBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
        */
-      public Builder clearContract() {
-        if (contractBuilder_ == null) {
-          contract_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
+      public Builder clearSubscriptionContracts() {
+        if (subscriptionContractsBuilder_ == null) {
+          subscriptionContracts_ = org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance();
           onChanged();
         } else {
-          contractBuilder_.clear();
+          subscriptionContractsBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder getContractBuilder() {
-        bitField0_ |= 0x00000001;
+      public org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder getSubscriptionContractsBuilder() {
+        bitField0_ |= 0x00000008;
         onChanged();
-        return getContractFieldBuilder().getBuilder();
+        return getSubscriptionContractsFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getContractOrBuilder() {
-        if (contractBuilder_ != null) {
-          return contractBuilder_.getMessageOrBuilder();
+      public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getSubscriptionContractsOrBuilder() {
+        if (subscriptionContractsBuilder_ != null) {
+          return subscriptionContractsBuilder_.getMessageOrBuilder();
         } else {
-          return contract_;
+          return subscriptionContracts_;
         }
       }
       /**
-       * <code>required .payments.PaymentDetails contract = 1;</code>
+       * <code>required .payments.PaymentDetails subscription_contracts = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> 
-          getContractFieldBuilder() {
-        if (contractBuilder_ == null) {
-          contractBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          getSubscriptionContractsFieldBuilder() {
+        if (subscriptionContractsBuilder_ == null) {
+          subscriptionContractsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder>(
-                  contract_,
+                  subscriptionContracts_,
                   getParentForChildren(),
                   isClean());
-          contract_ = null;
+          subscriptionContracts_ = null;
         }
-        return contractBuilder_;
+        return subscriptionContractsBuilder_;
       }
 
-      // repeated .payments.PaymentDetails payments_for_period = 2;
-      private java.util.List<org.bitcoin.protocols.payments.Protos.PaymentDetails> paymentsForPeriod_ =
+      // repeated .payments.SubscriptionPayment payments_for_period = 5;
+      private java.util.List<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment> paymentsForPeriod_ =
         java.util.Collections.emptyList();
       private void ensurePaymentsForPeriodIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          paymentsForPeriod_ = new java.util.ArrayList<org.bitcoin.protocols.payments.Protos.PaymentDetails>(paymentsForPeriod_);
-          bitField0_ |= 0x00000002;
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          paymentsForPeriod_ = new java.util.ArrayList<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment>(paymentsForPeriod_);
+          bitField0_ |= 0x00000010;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> paymentsForPeriodBuilder_;
+          org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder> paymentsForPeriodBuilder_;
 
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public java.util.List<org.bitcoin.protocols.payments.Protos.PaymentDetails> getPaymentsForPeriodList() {
+      public java.util.List<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment> getPaymentsForPeriodList() {
         if (paymentsForPeriodBuilder_ == null) {
           return java.util.Collections.unmodifiableList(paymentsForPeriod_);
         } else {
@@ -678,7 +1630,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public int getPaymentsForPeriodCount() {
         if (paymentsForPeriodBuilder_ == null) {
@@ -688,9 +1640,9 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetails getPaymentsForPeriod(int index) {
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment getPaymentsForPeriod(int index) {
         if (paymentsForPeriodBuilder_ == null) {
           return paymentsForPeriod_.get(index);
         } else {
@@ -698,10 +1650,10 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder setPaymentsForPeriod(
-          int index, org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+          int index, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment value) {
         if (paymentsForPeriodBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -715,10 +1667,10 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder setPaymentsForPeriod(
-          int index, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder builderForValue) {
+          int index, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder builderForValue) {
         if (paymentsForPeriodBuilder_ == null) {
           ensurePaymentsForPeriodIsMutable();
           paymentsForPeriod_.set(index, builderForValue.build());
@@ -729,9 +1681,9 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public Builder addPaymentsForPeriod(org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+      public Builder addPaymentsForPeriod(org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment value) {
         if (paymentsForPeriodBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -745,10 +1697,10 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder addPaymentsForPeriod(
-          int index, org.bitcoin.protocols.payments.Protos.PaymentDetails value) {
+          int index, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment value) {
         if (paymentsForPeriodBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -762,10 +1714,10 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder addPaymentsForPeriod(
-          org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder builderForValue) {
+          org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder builderForValue) {
         if (paymentsForPeriodBuilder_ == null) {
           ensurePaymentsForPeriodIsMutable();
           paymentsForPeriod_.add(builderForValue.build());
@@ -776,10 +1728,10 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder addPaymentsForPeriod(
-          int index, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder builderForValue) {
+          int index, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder builderForValue) {
         if (paymentsForPeriodBuilder_ == null) {
           ensurePaymentsForPeriodIsMutable();
           paymentsForPeriod_.add(index, builderForValue.build());
@@ -790,10 +1742,10 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder addAllPaymentsForPeriod(
-          java.lang.Iterable<? extends org.bitcoin.protocols.payments.Protos.PaymentDetails> values) {
+          java.lang.Iterable<? extends org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment> values) {
         if (paymentsForPeriodBuilder_ == null) {
           ensurePaymentsForPeriodIsMutable();
           super.addAll(values, paymentsForPeriod_);
@@ -804,12 +1756,12 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder clearPaymentsForPeriod() {
         if (paymentsForPeriodBuilder_ == null) {
           paymentsForPeriod_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
         } else {
           paymentsForPeriodBuilder_.clear();
@@ -817,7 +1769,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
       public Builder removePaymentsForPeriod(int index) {
         if (paymentsForPeriodBuilder_ == null) {
@@ -830,16 +1782,16 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder getPaymentsForPeriodBuilder(
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder getPaymentsForPeriodBuilder(
           int index) {
         return getPaymentsForPeriodFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder getPaymentsForPeriodOrBuilder(
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder getPaymentsForPeriodOrBuilder(
           int index) {
         if (paymentsForPeriodBuilder_ == null) {
           return paymentsForPeriod_.get(index);  } else {
@@ -847,9 +1799,9 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public java.util.List<? extends org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> 
+      public java.util.List<? extends org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder> 
            getPaymentsForPeriodOrBuilderList() {
         if (paymentsForPeriodBuilder_ != null) {
           return paymentsForPeriodBuilder_.getMessageOrBuilderList();
@@ -858,35 +1810,35 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder addPaymentsForPeriodBuilder() {
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder addPaymentsForPeriodBuilder() {
         return getPaymentsForPeriodFieldBuilder().addBuilder(
-            org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance());
+            org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.getDefaultInstance());
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder addPaymentsForPeriodBuilder(
+      public org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder addPaymentsForPeriodBuilder(
           int index) {
         return getPaymentsForPeriodFieldBuilder().addBuilder(
-            index, org.bitcoin.protocols.payments.Protos.PaymentDetails.getDefaultInstance());
+            index, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.getDefaultInstance());
       }
       /**
-       * <code>repeated .payments.PaymentDetails payments_for_period = 2;</code>
+       * <code>repeated .payments.SubscriptionPayment payments_for_period = 5;</code>
        */
-      public java.util.List<org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder> 
+      public java.util.List<org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder> 
            getPaymentsForPeriodBuilderList() {
         return getPaymentsForPeriodFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder> 
+          org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder> 
           getPaymentsForPeriodFieldBuilder() {
         if (paymentsForPeriodBuilder_ == null) {
           paymentsForPeriodBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              org.bitcoin.protocols.payments.Protos.PaymentDetails, org.bitcoin.protocols.payments.Protos.PaymentDetails.Builder, org.bitcoin.protocols.payments.Protos.PaymentDetailsOrBuilder>(
+              org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPayment.Builder, org.bitcoin.protocols.subscriptions.Protos.SubscriptionPaymentOrBuilder>(
                   paymentsForPeriod_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000010) == 0x00000010),
                   getParentForChildren(),
                   isClean());
           paymentsForPeriod_ = null;
@@ -906,6 +1858,11 @@ public final class Protos {
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_payments_SubscriptionPayment_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_payments_SubscriptionPayment_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_payments_Subscription_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -920,23 +1877,34 @@ public final class Protos {
   static {
     java.lang.String[] descriptorData = {
       "\n\022subscription.proto\022\010payments\032\024paymentr" +
-      "equest.proto\"q\n\014Subscription\022*\n\010contract" +
-      "\030\001 \002(\0132\030.payments.PaymentDetails\0225\n\023paym" +
-      "ents_for_period\030\002 \003(\0132\030.payments.Payment" +
-      "DetailsB-\n#org.bitcoin.protocols.subscri" +
-      "ptionsB\006Protos"
+      "equest.proto\"b\n\023SubscriptionPayment\022\023\n\013c" +
+      "ontract_id\030\001 \002(\014\0226\n\024payment_for_contract" +
+      "\030\002 \002(\0132\030.payments.PaymentDetails\"\323\001\n\014Sub" +
+      "scription\022\037\n\024subscription_version\030\001 \001(\r:" +
+      "\0011\022\023\n\013merchant_id\030\002 \002(\t\022\027\n\017subscription_" +
+      "id\030\003 \002(\014\0228\n\026subscription_contracts\030\004 \002(\013" +
+      "2\030.payments.PaymentDetails\022:\n\023payments_f" +
+      "or_period\030\005 \003(\0132\035.payments.SubscriptionP" +
+      "aymentB-\n#org.bitcoin.protocols.subscrip",
+      "tionsB\006Protos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_payments_Subscription_descriptor =
+          internal_static_payments_SubscriptionPayment_descriptor =
             getDescriptor().getMessageTypes().get(0);
+          internal_static_payments_SubscriptionPayment_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_payments_SubscriptionPayment_descriptor,
+              new java.lang.String[] { "ContractId", "PaymentForContract", });
+          internal_static_payments_Subscription_descriptor =
+            getDescriptor().getMessageTypes().get(1);
           internal_static_payments_Subscription_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_payments_Subscription_descriptor,
-              new java.lang.String[] { "Contract", "PaymentsForPeriod", });
+              new java.lang.String[] { "SubscriptionVersion", "MerchantId", "SubscriptionId", "SubscriptionContracts", "PaymentsForPeriod", });
           return null;
         }
       };
