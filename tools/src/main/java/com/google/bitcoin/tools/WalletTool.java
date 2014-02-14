@@ -496,7 +496,7 @@ public class WalletTool {
                 if (session != null) {
                     send(session);
                 } else {
-                    System.err.println("Server returned null session");
+                    System.err.println("Server returned null session (this is expected for recurrring payment when there is nothing to pay) ");
                     System.exit(1);
                 }
             } catch (PaymentRequestException e) {

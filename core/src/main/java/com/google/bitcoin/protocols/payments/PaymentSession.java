@@ -219,12 +219,12 @@ public class PaymentSession {
                 connection.setUseCaches(false);
                 Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(connection.getInputStream());
 
-                final PaymentSession paymentSession = new PaymentSession(paymentRequest, verifyPki, trustStorePath);
-
+                PaymentSession paymentSession = new PaymentSession(paymentRequest, verifyPki, trustStorePath);
                 if (walletDirectory != null) {
                     RecurringPaymentSession.storeRecurringPaymentInfoIfRequired(paymentSession.getPaymentDetails(), walletDirectory);
+                    paymentSession = (paymentSession.totalValue.compareTo(BigInteger.ZERO) != 0) ? paymentSession : null;
                 }
-
+                // Return null in the recurring case if there is nothing to pay so as to avoid creating a transaction with only a fee.
                 return paymentSession;
             }
         });
@@ -616,7 +616,7 @@ public class PaymentSession {
                 params = NetworkParameters.fromPmtProtocolID(paymentDetails.getNetwork());
             if (params == null)
                 throw new PaymentRequestException.InvalidNetwork("Invalid network " + paymentDetails.getNetwork());
-            if (paymentDetails.getOutputsCount() < 1)
+            if (paymentDetails.getOutputsCount() < 1 && !paymentDetails.hasSerializedRecurringPaymentDetails())
                 throw new PaymentRequestException.InvalidOutputs("No outputs");
             for (Protos.Output output : paymentDetails.getOutputsList()) {
                 if (output.hasAmount())
