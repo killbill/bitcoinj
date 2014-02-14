@@ -160,7 +160,7 @@ public class WalletTool {
         BLOCK,
         BALANCE
     }
-    
+
     public enum NetworkEnum {
         PROD,
         TEST,
@@ -349,7 +349,7 @@ public class WalletTool {
             System.err.println("************** WALLET IS INCONSISTENT *****************");
             return;
         }
-        
+
         saveWallet(walletFile);
 
         if (options.has(waitForFlag)) {

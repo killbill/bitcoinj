@@ -89,7 +89,6 @@ public class Subscriptions {
                 paidAmountForPeriod += output.getAmount();
             }
         }
-
         return BigInteger.valueOf(paidAmountForPeriod);
     }
 

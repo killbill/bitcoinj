@@ -15,6 +15,7 @@
 
 package com.google.bitcoin.store;
 
+import com.google.bitcoin.core.Utils;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -115,7 +116,9 @@ public class RecurringPaymentProtobufSerializer {
 
         // Add new and updated contracts
         for (org.bitcoin.protocols.payments.Protos.RecurringPaymentContract retrievedContract : retrievedContracts) {
-            updatedContracts.add(retrievedContract);
+            if (!cancelled(retrievedContract)) {
+                updatedContracts.add(retrievedContract);
+            }
         }
 
         org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails updatedRecurringPaymentDetails = org.bitcoin.protocols.payments.Protos.RecurringPaymentDetails.newBuilder(originalRecurringPaymentDetails)
@@ -126,6 +129,10 @@ public class RecurringPaymentProtobufSerializer {
         return org.bitcoin.protocols.payments.Protos.PaymentDetails.newBuilder(originalPaymentDetails)
                 .setSerializedRecurringPaymentDetails(updatedRecurringPaymentDetails.toByteString())
                 .build();
+    }
+
+    private boolean cancelled(org.bitcoin.protocols.payments.Protos.RecurringPaymentContract contract) {
+        return contract.hasEnds() && contract.getEnds() <= Utils.currentTimeMillis();
     }
 
     private Map<ByteString, org.bitcoin.protocols.payments.Protos.RecurringPaymentContract> buildContractMap(Iterable<org.bitcoin.protocols.payments.Protos.RecurringPaymentContract> contracts) {

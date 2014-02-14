@@ -75,7 +75,6 @@ public class PollingRunnable implements Runnable {
         } catch (Exception e) {
             callback.onException(e, null, null);
         }
-
         callback.onCompletion(nbPaymentsSent);
     }
 
